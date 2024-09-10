@@ -1,0 +1,28 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: No CSS Allowed
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+jobs:
+  # Single deploy job since we're just deploying
+  css_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Check for CSS files using git-ls
+      - name: Check for CSS files
+        run: |
+          # List all .css files in the repo
+          if git ls-files '*.css' | grep .; then
+            echo "CSS files found! Aborting deployment."
+            exit 1
+          else
+            echo "No CSS files found. Proceeding with deployment."
+          fi
