@@ -26,3 +26,4 @@ jobs:
             - name: Run tests
               run: |
                   python no_style_test.py
+              continue-on-error: false  # This ensures that if the script fails, the workflow fails
